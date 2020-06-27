@@ -28,14 +28,18 @@ app.use(express.urlencoded({extended: true}));
 //routes
 app.use('/api', require('./routes/post'));
 app.use('/api', require('./routes/user'));
+app.use('/api', require('./routes/admin'));
+app.use('/api/login', require('./routes/login'));
 
-//Middleware para Vue.js router modo history
+//Middleware for Vue.js router modo history
 const history = require('connect-history-api-fallback');
 app.use(history());
 
 //Static route
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+//Server settings
 app.set('port', process.env.PORT || 3000);
 
 app.listen(app.get('port'), () =>{

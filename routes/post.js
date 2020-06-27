@@ -5,9 +5,14 @@ const router = express.Router();
 //import post model
 import Post from "../models/post";
 
+//import midlewares
+import {checkAuth, checkAdmin} from '../midlewares/authentication';
+
 //add a post
-router.post("/new-post", async (req, res) => {
+router.post("/new-post",checkAuth, async (req, res) => {
   const body = req.body;
+  body.userId = req.user._id;
+
   try {
     const postDB = await Post.create(body);
     res.json(postDB);
