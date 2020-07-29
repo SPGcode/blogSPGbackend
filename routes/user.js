@@ -38,20 +38,20 @@ router.post('/new-user', async (req, res) => {
 });
 
 //User updates
-router.put('/user/:id',[checkAuth, checkAdmin], async(req, res) =>{
+router.put('/user/:id', async(req, res) =>{
 
     const _id = req.params.id;
     const body = _.pick(req.body, ['name', 'mail', 'pass', 'active']);
 
     if(body.pass){
-        body.pass =hashSync(req.body.pass, saltRounds);
+        body.pass = bcrypt.hashSync(req.body.pass, saltRounds);
     }
 
     try {
        const userDB = await User.findByIdAndUpdate(
             _id, 
             body, 
-            {new: true, runValidators: true});
+            {new: true});
         return res.json(userDB);
 
     } catch (error) {
@@ -61,5 +61,20 @@ router.put('/user/:id',[checkAuth, checkAdmin], async(req, res) =>{
         });
     };
 });
+
+//Get user
+router.get("/user/:id", async (req, res) => {
+    const _id = req.params.id;
+    console.log(_id.data)
+    try {
+      const userDB = await User.findOne({ _id });
+      res.json(userDB);
+    } catch (error) {
+      return res.status(400).json({
+        mes: "An error hapend",
+        error,
+      });
+    }
+  });
 
 module.exports = router;

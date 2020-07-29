@@ -38,7 +38,6 @@ app.use(history());
 //Static route
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 //Server settings
 app.set('port', process.env.PORT || 3000);
 

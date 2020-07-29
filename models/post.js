@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
 
     title: {type: String, required: [true, 'Title is required']},
-    name: String,
+    userName: String,
     description: String,
     userId: String,
-    date: {type: Date, default: Date.now},
+    date: {type: Date, default: new Date() },
     active: {type: Boolean, default: true}
 
 });

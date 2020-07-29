@@ -6,15 +6,18 @@ const router = express.Router();
 import Post from "../models/post";
 
 //import midlewares
-import {checkAuth, checkAdmin} from '../midlewares/authentication';
+import {checkAuth} from '../midlewares/authentication';
+
 
 //add a post
 router.post("/new-post",checkAuth, async (req, res) => {
   const body = req.body;
   body.userId = req.user._id;
+  body.userName = req.user.name
 
   try {
     const postDB = await Post.create(body);
+    console.log(postDB)
     res.json(postDB);
   } catch (error) {
     return res.status(500).json({
@@ -27,6 +30,7 @@ router.post("/new-post",checkAuth, async (req, res) => {
 //Get with parameters
 router.get("/post/:id", async (req, res) => {
   const _id = req.params.id;
+  console.log(_id.data)
   try {
     const postDB = await Post.findOne({ _id });
     res.json(postDB);
@@ -69,6 +73,7 @@ router.put("/post/:id", async (req, res) => {
 //Delete post
 router.delete("/post/:id", async (req, res) => {
   const _id = req.params.id;
+  console.log(_id)
   try {
     const postDB = await Post.findByIdAndDelete({ _id });
     if (!postDB) {

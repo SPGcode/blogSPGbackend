@@ -5,7 +5,7 @@ const router = express.Router();
 import User from '../models/user';
 
 //Import midleware
-import {checkAuth, checkAdmin} from '../midlewares/authentication';
+import { checkAdmin} from '../midlewares/authentication';
 
 //Get Users
 
