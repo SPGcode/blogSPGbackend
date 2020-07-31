@@ -1,11 +1,12 @@
 import express from "express";
-
 const router = express.Router();
 
 import User from '../models/user';
 
 //Import midleware
-import {checkAuth, checkAdmin} from '../midlewares/authentication';
+import upload from '../libs/storage'
+
+// import {checkAuth, checkAdmin} from '../midlewares/authentication';
 
 //Hash Password
 import bcrypt from 'bcrypt';
@@ -16,11 +17,13 @@ import _ from 'underscore';
 
 
 // POST
-router.post('/new-user', async (req, res) => {
+router.post('/new-user', upload.single('avatar'), async (req, res) => {
+    console.log(req.body)
     const body = {
         name: req.body.name,
         mail: req.body.mail,
-        role: req.body.role
+        role: req.body.role,
+        avatar: req.file.path
     };
 
     body.pass = bcrypt.hashSync(req.body.pass, saltRounds);

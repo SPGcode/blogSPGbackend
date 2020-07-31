@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import mongoose from 'mongoose';
 
+
 const app = express();
 
 //connect to db
@@ -37,6 +38,7 @@ app.use(history());
 
 //Static route
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use('/public', express.static(`${__dirname}/storage/img`) )
 
 //Server settings
 app.set('port', process.env.PORT || 3000);

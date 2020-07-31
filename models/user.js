@@ -10,6 +10,7 @@ const roles = {
 const userSchema = new Schema({
 
     name: {type: String, required: [true, 'Name is required']},
+    avatar:"",
     mail: {
         type: String, 
         required: [true, 'mail is required'],
@@ -22,6 +23,7 @@ const userSchema = new Schema({
 });
 
 userSchema.plugin(uniqueValidator, { message: 'Error, expected {PATH} unique'});
+
 
 //Hide data pass in front view https://medium.com/@contactsunny/hide-properties-of-mongoose-objects-in-node-js-json-responses-a5437a5dbec2
 userSchema.methods.toJSON = function () {
